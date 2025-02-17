@@ -19,8 +19,8 @@ public class Policy {
     private String policyHolderLastName;
     private int policyHolderAge;
     private String policyHolderSmokingStatus; // "smoker" or "non-smoker"
-    private int policyHolderHeight; // in inches
-    private int policyHolderWeight; // in pounds
+    private double policyHolderHeight; // in inches
+    private double policyHolderWeight; // in pounds
 
     /**
      * No-argument constructor that initializes the Policy object with default values.
@@ -50,7 +50,7 @@ public class Policy {
      */
     public Policy(int policyNumber, String providerName, String policyHolderFirstName,
                   String policyHolderLastName, int policyHolderAge, String policyHolderSmokingStatus,
-                  int policyHolderHeight, int policyHolderWeight) {
+                  double policyHolderHeight, double policyHolderWeight) {
         this.policyNumber = policyNumber;
         this.providerName = providerName;
         this.policyHolderFirstName = policyHolderFirstName;
@@ -111,19 +111,19 @@ public class Policy {
         this.policyHolderSmokingStatus = policyHolderSmokingStatus;
     }
 
-    public int getPolicyHolderHeight() {
+    public double getPolicyHolderHeight() {
         return policyHolderHeight;
     }
 
-    public void setPolicyHolderHeight(int policyHolderHeight) {
+    public void setPolicyHolderHeight(double policyHolderHeight) {
         this.policyHolderHeight = policyHolderHeight;
     }
 
-    public int getPolicyHolderWeight() {
+    public double getPolicyHolderWeight() {
         return policyHolderWeight;
     }
 
-    public void setPolicyHolderWeight(int policyHolderWeight) {
+    public void setPolicyHolderWeight(double policyHolderWeight) {
         this.policyHolderWeight = policyHolderWeight;
     }
 
