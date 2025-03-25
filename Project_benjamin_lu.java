@@ -14,29 +14,31 @@ public class Project_benjamin_lu {
             File file = new File("PolicyInformation.txt");
             Scanner fileReader = new Scanner(file);
 
+            // Read the file until no more lines remain
             while (fileReader.hasNextLine()) {
-                // Read the 8 lines for one policy
+
+                // Read and parse the first line (Policy Number).
+                // We should also handle blank lines if present.
                 String policyNumStr = fileReader.nextLine().trim();
                 if (policyNumStr.isEmpty()) {
-                    // If you encounter an empty line, you can skip or break out
-                    // but typically we just continue
+                    // If this line is empty, skip it and continue.
+                    // (Some files might have blank lines between records.)
                     continue;
                 }
-                int policyNumber = Integer.parseInt(policyNumStr);
 
+                int policyNumber = Integer.parseInt(policyNumStr);
                 String providerName = fileReader.nextLine().trim();
                 String firstName = fileReader.nextLine().trim();
                 String lastName = fileReader.nextLine().trim();
-
                 int age = Integer.parseInt(fileReader.nextLine().trim());
                 String smokingStatus = fileReader.nextLine().trim();
                 double height = Double.parseDouble(fileReader.nextLine().trim());
                 double weight = Double.parseDouble(fileReader.nextLine().trim());
 
-                // Create a Policy object with the retrieved data
+                // Create a new Policy object with these details
                 Policy policy = new Policy(
                         policyNumber, 
-                        providerName,
+                        providerName, 
                         firstName, 
                         lastName, 
                         age, 
@@ -45,38 +47,50 @@ public class Project_benjamin_lu {
                         weight
                 );
 
-                // Add the Policy object to the ArrayList
+                // Add the Policy to our list
                 policies.add(policy);
             }
 
-            // Close the file reader
-            fileReader.close();
+            fileReader.close(); // Close the scanner
 
         } catch (FileNotFoundException e) {
-            System.out.println("Error: The file PolicyInformation.txt was not found.");
-            System.out.println("Make sure the file path is correct and try again.");
-            return;  // Exit main if file not found
+            System.out.println("Error: The file 'PolicyInformation.txt' was not found.");
+            return;
         } catch (NumberFormatException e) {
-            System.out.println("Error parsing number from the file. Check the file format.");
-            return;  // Exit main if incorrect format
+            System.out.println("Error: A numeric value could not be parsed. Check file formatting.");
+            return;
         }
 
-        // Now, output information for each policy
-        // (This mimics what the old demo class did for a single policy,
-        //  but we now do it for *all* the policies we read.)
+        // Counters for smoker vs. non-smoker
+        int smokerCount = 0;
+        int nonSmokerCount = 0;
 
+        // Display policy information and count smoking status
         for (Policy policy : policies) {
+
             System.out.println("Policy Number: " + policy.getPolicyNumber());
             System.out.println("Provider Name: " + policy.getProviderName());
-            System.out.println("Policyholder’s First Name: " + policy.getPolicyHolderFirstName());
-            System.out.println("Policyholder’s Last Name: " + policy.getPolicyHolderLastName());
-            System.out.println("Policyholder’s Age: " + policy.getPolicyHolderAge());
-            System.out.println("Policyholder’s Smoking Status: " + policy.getPolicyHolderSmokingStatus());
-            System.out.printf("Policyholder’s Height: %.1f inches%n", policy.getPolicyHolderHeight());
-            System.out.printf("Policyholder’s Weight: %.1f pounds%n", policy.getPolicyHolderWeight());
-            System.out.printf("Policyholder’s BMI: %.2f%n", policy.calculateBMI());
+            System.out.println("Policyholder's First Name: " + policy.getPolicyHolderFirstName());
+            System.out.println("Policyholder's Last Name: " + policy.getPolicyHolderLastName());
+            System.out.println("Policyholder's Age: " + policy.getPolicyHolderAge());
+            System.out.println("Policyholder's Smoking Status (smoker/non-smoker): " 
+                               + policy.getPolicyHolderSmokingStatus());
+            System.out.println("Policyholder's Height: " + policy.getPolicyHolderHeight() + " inches");
+            System.out.println("Policyholder's Weight: " + policy.getPolicyHolderWeight() + " pounds");
+            System.out.printf("Policyholder's BMI: %.2f%n", policy.calculateBMI());
             System.out.printf("Policy Price: $%.2f%n", policy.calculateInsurancePrice());
-            System.out.println();  // blank line separator
+            System.out.println(); // Blank line separating each policy's details
+
+            // Increment smoker/non-smoker counters
+            if (policy.getPolicyHolderSmokingStatus().equalsIgnoreCase("smoker")) {
+                smokerCount++;
+            } else {
+                nonSmokerCount++;
+            }
         }
+
+        // Display the final counts
+        System.out.println("The number of policies with a smoker is: " + smokerCount);
+        System.out.println("The number of policies with a non-smoker is: " + nonSmokerCount);
     }
 }
