@@ -1,6 +1,6 @@
 /**
- * The Policy class models an insurance policy that holds a policy number, a
- * provider name, and references a PolicyHolder to retrieve personal information.
+ * The Policy class models an insurance policy, holding a policy number,
+ * a provider name, and referencing a PolicyHolder for personal information.
  * It also calculates the insurance price based on certain criteria.
  */
 public class Policy {
@@ -12,11 +12,11 @@ public class Policy {
     public static final double BMI_THRESHOLD = 35.0;
     public static final double BMI_SURCHARGE_RATE = 20.0;
 
-    // Fields related to the policy itself
+    // Policy-related fields
     private int policyNumber;
     private String providerName;
 
-    // A reference to the person who holds this policy
+    // Reference to the PolicyHolder
     private PolicyHolder policyHolder;
 
     /**
@@ -25,7 +25,7 @@ public class Policy {
     public Policy() {
         this.policyNumber = 0;
         this.providerName = "";
-        this.policyHolder = new PolicyHolder(); // Default policyholder
+        this.policyHolder = new PolicyHolder(); // Default policy holder
     }
 
     /**
@@ -33,7 +33,7 @@ public class Policy {
      *
      * @param policyNumber The policy number
      * @param providerName The provider name
-     * @param policyHolder The PolicyHolder object containing personal data
+     * @param policyHolder The PolicyHolder object with personal data
      */
     public Policy(int policyNumber, String providerName, PolicyHolder policyHolder) {
         this.policyNumber = policyNumber;
@@ -99,5 +99,25 @@ public class Policy {
         }
 
         return totalPrice;
+    }
+
+    /**
+     * Returns a string representation of the Policy's information, including:
+     * Policy number, provider name, details of the policy holder (via their toString),
+     * and the calculated policy price.
+     */
+    @Override
+    public String toString() {
+        // Build the string with policy info + the policy holder's details + policy price
+        return String.format(
+            "Policy Number: %d\n" +
+            "Provider Name: %s\n" +
+            "%s" +  // policyHolder.toString() handles holder's lines
+            "Policy Price: $%.2f\n",
+            policyNumber,
+            providerName,
+            policyHolder.toString(),
+            calculateInsurancePrice()
+        );
     }
 }
