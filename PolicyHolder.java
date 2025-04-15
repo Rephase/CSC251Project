@@ -5,13 +5,13 @@
  */
 public class PolicyHolder {
 
-    // Fields that describe the person
+    // Fields describing the person
     private String firstName;
     private String lastName;
     private int age;
-    private String smokingStatus;    // "smoker" or "non-smoker"
-    private double height;           // in inches
-    private double weight;           // in pounds
+    private String smokingStatus;  // "smoker" or "non-smoker"
+    private double height;         // in inches
+    private double weight;         // in pounds
 
     /**
      * No-argument constructor that initializes a PolicyHolder with default values.
@@ -108,5 +108,29 @@ public class PolicyHolder {
             return 0;
         }
         return (weight * 703.0) / (height * height);
+    }
+
+    /**
+     * Returns a string representation of the PolicyHolder's information,
+     * including name, age, smoking status, height, weight, and BMI.
+     */
+    @Override
+    public String toString() {
+        return String.format(
+            "Policyholder's First Name: %s\n" +
+            "Policyholder's Last Name: %s\n" +
+            "Policyholder's Age: %d\n" +
+            "Policyholder's Smoking Status (Y/N): %s\n" +
+            "Policyholder's Height: %.1f inches\n" +
+            "Policyholder's Weight: %.1f pounds\n" +
+            "Policyholder's BMI: %.2f\n",
+            firstName,
+            lastName,
+            age,
+            smokingStatus,
+            height,
+            weight,
+            calculateBMI()
+        );
     }
 }
