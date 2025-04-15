@@ -12,6 +12,9 @@ public class Policy {
     public static final double BMI_THRESHOLD = 35.0;
     public static final double BMI_SURCHARGE_RATE = 20.0;
 
+    // A static field to keep track of how many Policy objects have been created
+    private static int policyCount = 0;
+
     // Policy-related fields
     private int policyNumber;
     private String providerName;
@@ -21,15 +24,20 @@ public class Policy {
 
     /**
      * No-argument constructor that initializes a Policy with default values.
+     * Increments policyCount to track the creation of a new Policy object.
      */
     public Policy() {
         this.policyNumber = 0;
         this.providerName = "";
-        this.policyHolder = new PolicyHolder(); // Default policy holder
+        this.policyHolder = new PolicyHolder();
+
+        // Increment the static counter every time a Policy is constructed
+        policyCount++;
     }
 
     /**
      * Constructor that initializes a Policy with the specified values.
+     * Increments policyCount to track the creation of a new Policy object.
      *
      * @param policyNumber The policy number
      * @param providerName The provider name
@@ -39,6 +47,9 @@ public class Policy {
         this.policyNumber = policyNumber;
         this.providerName = providerName;
         this.policyHolder = policyHolder;
+
+        // Increment the static counter every time a Policy is constructed
+        policyCount++;
     }
 
     // --------------------
@@ -66,6 +77,15 @@ public class Policy {
 
     public void setPolicyHolder(PolicyHolder policyHolder) {
         this.policyHolder = policyHolder;
+    }
+
+    /**
+     * A public static method to access the current count of Policy objects created.
+     *
+     * @return The number of Policy objects created.
+     */
+    public static int getPolicyCount() {
+        return policyCount;
     }
 
     /**
@@ -108,11 +128,10 @@ public class Policy {
      */
     @Override
     public String toString() {
-        // Build the string with policy info + the policy holder's details + policy price
         return String.format(
             "Policy Number: %d\n" +
             "Provider Name: %s\n" +
-            "%s" +  // policyHolder.toString() handles holder's lines
+            "%s" +  // policyHolder.toString() prints all holder details
             "Policy Price: $%.2f\n",
             policyNumber,
             providerName,
